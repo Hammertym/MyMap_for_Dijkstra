@@ -18,30 +18,30 @@ public class Map {
     }
 
     //This is so I can add a first Node, use the firstNode as a connection, or use another Node as a connection.
-    public void addNode(String data, int length, boolean random){
+    public void addNode(String data, int length){
         if (firstNode == null){
             this.firstNode = new Node(data);
             nodeList.add(firstNode);
             currentNode = firstNode;
         } else {
             Node tempNode = new Node(data);
-            addConnection(length, firstNode, tempNode, random);
+            addConnection(length, firstNode, tempNode);
             nodeList.add(tempNode);
         }
     }
 
-    public void addNode(String data, int length, Node connectNode, boolean random){
+    public void addNode(String data, int length, Node connectNode){
             Node tempNode = new Node(data);
-            addConnection(length, connectNode, tempNode, random);
+            addConnection(length, connectNode, tempNode);
             nodeList.add(tempNode);
     }
 
     //This is done so the connections go both ways. This method is designed to just be used internally, and be used to
     // save lines
-    public void addConnection(int length, Node headNode, Node footNode, boolean random){
-        Connection tempConn = new Connection(length, footNode, random);
+    public void addConnection(int length, Node headNode, Node footNode){
+        Connection tempConn = new Connection(length, footNode);
         headNode.addConnections(tempConn);
-        tempConn = new Connection(length, headNode, random);
+        tempConn = new Connection(length, headNode);
         footNode.addConnections(tempConn);
     }
 
@@ -135,8 +135,8 @@ public class Map {
 
 
             //For the sake of small numbers, the random number will not exceed 10.
-            public Connection(int length, Node n, boolean random) {
-                if (random){
+            public Connection(int length, Node n) {
+                if (length == 0){
                     this.length = (int)(10*Math.random());
                 } else {
                     this.length = length;
