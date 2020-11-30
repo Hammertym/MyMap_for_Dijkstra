@@ -8,16 +8,12 @@ public class Map {
     ArrayList<Node> nodeList = new ArrayList<>();
     int travelLength;
 
-    public Node getFirstNode() {
-        return firstNode;
-    }
 
     public Map(){
         this.firstNode = null;
         travelLength = 0;
     }
 
-    //This is so I can add a first Node, use the firstNode as a connection, or use another Node as a connection.
     public void addNode(String data, int length){
         if (firstNode == null){
             this.firstNode = new Node(data);
@@ -36,8 +32,8 @@ public class Map {
             nodeList.add(tempNode);
     }
 
-    //This is done so the connections go both ways. This method is designed to just be used internally, and be used to
-    // save lines
+    //This is done so the connections go both ways. You can also use this method to manually add connections between two
+    // existing Nodes, in addition to it being used in the addNode methods.
     public void addConnection(int length, Node headNode, Node footNode){
         Connection tempConn = new Connection(length, footNode);
         headNode.addConnections(tempConn);
@@ -65,7 +61,7 @@ public class Map {
         boolean nodeCheck = false, secondCheck = false;
         String scanned = "";
         while (!nodeCheck) {
-            System.out.println("Enter name of desired Node.");
+            System.out.println("Enter name of Node you are travelling to.");
             if (secondCheck)
                 System.out.println("Node" + scanned + "was not found. Please try again");
             scanned = scan.nextLine();
@@ -85,10 +81,11 @@ public class Map {
     // them. Whenever a Node is created, it is put into this array, so that it can be found later. I primarily used this
     // for adding connections, where the travel method is used for the actual iteration.
     public Node findByData(String data){
+        boolean found = false;
         for (Node n : nodeList){
-            if (n.getData().equals(data)){
-                return n;
-            }
+                if (n.getData().equals(data)) {
+                    return n;
+                }
         }
         System.out.println("Node " + data +  " not found.");
         return null;
@@ -114,25 +111,13 @@ public class Map {
             return connections;
         }
 
-        public Node getConnectNode(String data){
-            for (Connection c : connections){
-                if (c.getConnect().getData().equals(data)){
-                    return c.getConnect();
-                }
-            }
-            return null;
-        }
-
         public void addConnections(Connection c) {
-            connections.add(c);
-        }
+            connections.add(c); }
         }
 
         public class Connection {
             Node connectedNode;
             int length;
-
-
 
             //For the sake of small numbers, the random number will not exceed 10.
             public Connection(int length, Node n) {

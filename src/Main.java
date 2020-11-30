@@ -13,6 +13,8 @@ public class Main {
 
         // I know it specified as a boolean constructor, but this makes the declarations more compact, and accomplishes
         // the same thing.
+
+        // Also, because these are hardcoded, I am going to assume that the user will only enter Nodes that exist.
         Map myMap = new Map();
         myMap.addNode("data", 5);
         myMap.addNode("data2", 3);
