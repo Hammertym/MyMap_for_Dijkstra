@@ -1,6 +1,10 @@
+import java.util.Scanner;
+
 public class Main {
 
     public static void main (String[] args){
+        Scanner s = new Scanner(System.in);
+        boolean b = true;
 
         //This is the process to create the Map. It can be done with any number of nodes, any length values, or anything
         // else. You can add Nodes, or connections between them. When you add a Node, you need to set the connected
@@ -21,9 +25,15 @@ public class Main {
 
         //This is a basic iteration loop. It allows the user to do what Dijkstra (hopefully) can simulate. After
         // creating the map, it allows the user to travel through it, while keeping track of the lengths.
-        while(true) {
+        while(b) {
             myMap.displayConnections(myMap.currentNode);
             myMap.travel();
+            //This check is only here because the java wouldn't stop bugging me about the infinite loop otherwise.
+            System.out.println("Type '0' to quit the loop. Type anything else to remain");
+            String scanned = s.nextLine();
+            if (scanned.equals("0")){
+                b = false;
+            }
         }
     }
 }
