@@ -41,14 +41,22 @@ public class Map {
         footNode.addConnections(tempConn);
     }
 
+
+    public ArrayList<IndexCard> createIndexCardList(){
+        ArrayList<IndexCard> list = new ArrayList<IndexCard>();
+        for (int i = 0; i < nodeList.size(); i++){
+            list.add(new IndexCard(nodeList.get(i).getData(), (int) Double.POSITIVE_INFINITY,null));
+        }
+        return list;
+    }
+
     public void displayConnections(Node n){
         connectList = n.getConnections();
         if (connectList.size() > 0) {
-            System.out.println("\nCURRENT NODE: " + n.getData() + "\n" + n.getData() + " is connected with:");
+            System.out.println(n.getData() + " is connected with:");
             for (Connection c : connectList) {
                 System.out.println(c.getConnect().getData() + " with length of: " + c.getlength());
             }
-            System.out.println("total travel length: " + travelLength + "\n");
         } else {
             System.out.println("Node " + n.getData() + "has no connections");
         }
@@ -111,6 +119,14 @@ public class Map {
             return connections;
         }
 
+        public ArrayList<String> getConnectionStr(){
+            ArrayList<String> temp = new ArrayList<>();
+            for (Connection c : connections){
+                temp.add(c.getConnect().getData());
+            }
+            return temp;
+        }
+
         public void addConnections(Connection c) {
             connections.add(c); }
         }
@@ -121,8 +137,8 @@ public class Map {
 
             //For the sake of small numbers, the random number will not exceed 10.
             public Connection(int length, Node n) {
-                if (length == 0){
-                    this.length = (int)(10*Math.random());
+                if (length < 0){
+                    this.length = (int)((length*-1)*Math.random());
                 } else {
                     this.length = length;
                 }

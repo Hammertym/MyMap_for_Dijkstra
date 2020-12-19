@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main (String[] args){
+    public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
         boolean b = true;
 
@@ -16,20 +16,25 @@ public class Main {
 
         // Also, because these are hardcoded, I am going to assume that the user will only enter Nodes that exist.
         Map myMap = new Map();
-        myMap.addNode("data", 5);
-        myMap.addNode("data2", 3);
-        myMap.addNode("data3", 4);
-        myMap.addNode("data4", 2, myMap.findByData("data3"));
-        myMap.addConnection(7, myMap.findByData("data4"), myMap.findByData("data2"));
-        myMap.addNode("data5", 3, myMap.findByData("data4"));
-        myMap.addNode("data6", 2, myMap.findByData("data3"));
-        myMap.addConnection(6, myMap.findByData("data5"), myMap.findByData("data6"));
+        myMap.addNode("Bedroom", 0);
+        myMap.addNode("BrotherRoom", 2);
+        myMap.addNode("Stairs", 4);
+        myMap.addNode("Kitchen", 7, myMap.findByData("Stairs"));
+        myMap.addNode("DiningRoom", 3, myMap.findByData("Kitchen"));
+        myMap.addNode("Mudroom", 2, myMap.findByData("Kitchen"));
+        myMap.addNode("FrontDoor", 1, myMap.findByData("Mudroom"));
+        myMap.addNode("BrotherWindow", 1, myMap.findByData("BrotherRoom"));
+        myMap.addNode("MyWindow", 1);
+        myMap.addNode("Roof", 4, myMap.findByData("MyWindow"));
+        myMap.addNode("FrontYard", 10, myMap.findByData("Roof"));
+        myMap.addConnection(6, myMap.findByData("FrontYard"), myMap.findByData("FrontDoor"));
+        myMap.addConnection(3, myMap.findByData("Stairs"), myMap.findByData("DiningRoom"));
+        myMap.addConnection(11, myMap.findByData("Stairs"), myMap.findByData("FrontDoor"));
+        myMap.addConnection(6, myMap.findByData("DiningRoom"), myMap.findByData("Mudroom"));
+        myMap.addConnection(2, myMap.findByData("BrotherWindow"), myMap.findByData("Roof"));
 
-        //This is a basic iteration loop. It allows the user to do what Dijkstra (hopefully) can simulate. After
-        // creating the map, it allows the user to travel through it, while keeping track of the lengths.
-        while(true) {
-            myMap.displayConnections(myMap.currentNode);
-            myMap.travel();
-            }
-        }
+        Dijkstra myDijkstra = new Dijkstra(myMap);
+        myDijkstra.findShortestPath("Bedroom", "FrontDoor");
+
     }
+}
