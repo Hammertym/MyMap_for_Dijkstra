@@ -43,8 +43,7 @@ public class Dijkstra {
             currCard = queue.peer();
             System.out.println();
         }
-        queue.reverse();
-
+        queue.finishTheJob(target);
     }
 }
 
